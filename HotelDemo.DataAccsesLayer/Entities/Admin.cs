@@ -1,9 +1,10 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
 namespace HotelDemo.DataAccsesLayer.Entities;
 
-public class Admin : IdEntity
+public class Admin : BaseEntitiy
 {
-    public int FirstName { get; set; }
-    public int LastName { get; set; }
-    public int Address { get; set; }
+    public string Address { get; set; } = string.Empty!;
 }

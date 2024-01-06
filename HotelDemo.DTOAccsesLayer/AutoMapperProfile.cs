@@ -9,6 +9,7 @@ using HotelDemo.DTOAccsesLayer.DTOS.RoomDtos;
 using HotelDemo.DTOAccsesLayer.DTOS.StaffDtos;
 using HotelDemo.DTOAccsesLayer.DTOS.RoomTypeDtos;
 using HotelDemo.DTOAccsesLayer.DTOS.RoomDtos.RoomStatusDtos;
+using HotelDemo.DataAccsesLayer.Entities;
 namespace HotelDemo.DTOAccsesLayer;
 
 public class AutoMapperProfile : Profile
@@ -30,7 +31,7 @@ public class AutoMapperProfile : Profile
         #region Admin Dto
         CreateMap<AddAdminDto, Admin>();
         CreateMap<AdminDto, Admin>().ReverseMap();
-        CreateMap<UpdateAdminDto, Guest>();
+        CreateMap<UpdateAdminDto, Admin>();
         #endregion
 
         #region Room Dto

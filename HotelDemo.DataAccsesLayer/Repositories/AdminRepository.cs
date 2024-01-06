@@ -1,4 +1,5 @@
-﻿using HotelDemo.DataAccsesLayer.Interfaces;
+﻿using HotelDemo.DataAccsesLayer.Entities;
+using HotelDemo.DataAccsesLayer.Interfaces;
 
 namespace HotelDemo.DataAccsesLayer.Repositories;
 

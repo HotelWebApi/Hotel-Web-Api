@@ -1,23 +1,25 @@
-using HotelDemo.BusnissLogicLayer.Extended;
+﻿using HotelDemo.BusnissLogicLayer.Extended;
 using HotelDemo.BusnissLogicLayer.Interfaces;
+using HotelDemo.BusnissLogicLayer.Services;
+using HotelDemo.DTOAccsesLayer.DTOS.RoomDtos;
 using HotelDemo.DTOAccsesLayer.DTOS.StaffDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoetelDemoWebApi.Controllers;
 
+[Route("api/[controller]")]
 [ApiController]
-[Route("[controller]")]
-public class StaffController(IStaffService staffService) : ControllerBase
+public class RoomController(IRoomService roomService) : ControllerBase
 {
-    private readonly IStaffService _staffService = staffService;
+    private readonly IRoomService _roomService = roomService;
 
     [HttpGet("Get-all")]
     public async Task<IActionResult> Get()
     {
         try
         {
-            var staffs = await _staffService.GetAllAsync();
-            return Ok(staffs);
+            var rooms = await _roomService.GetAllAsync();
+            return Ok(rooms);
         }
         catch (CustomException ex)
         {
@@ -34,8 +36,8 @@ public class StaffController(IStaffService staffService) : ControllerBase
     {
         try
         {
-            var staff = await _staffService.GetByIdAsync(id);
-            return Ok(staff);
+            var room = await _roomService.GetByIdAsync(id);
+            return Ok(room);
         }
         catch (ArgumentNullException ex)
         {
@@ -48,11 +50,11 @@ public class StaffController(IStaffService staffService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddStaff(AddStaffDto staffDto)
+    public async Task<IActionResult> Add(AddRoomDto roomDto)
     {
         try
         {
-            await _staffService.AddAsync(staffDto);
+            await _roomService.AddAsync(roomDto);
             return Ok("added");
         }
         catch (ArgumentNullException ex)
@@ -76,8 +78,8 @@ public class StaffController(IStaffService staffService) : ControllerBase
     {
         try
         {
-            var staffs = await _staffService.GetAllPagedAsync(pageSize, pageNumber);
-            return Ok(staffs);
+            var rooms = await _roomService.GetAllPagedAsync(pageSize, pageNumber);
+            return Ok(rooms);
         }
         catch (Exception ex)
         {
@@ -86,11 +88,11 @@ public class StaffController(IStaffService staffService) : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put(UpdateStaffDto dto)
+    public async Task<IActionResult> Put(UpdateRoomDto dto)
     {
         try
         {
-            await _staffService.UpdateAsync(dto);
+            await _roomService.UpdateAsync(dto);
             return Ok("updated");
         }
         catch (ArgumentNullException ex)
@@ -112,7 +114,7 @@ public class StaffController(IStaffService staffService) : ControllerBase
     {
         try
         {
-            await _staffService.DeleteAsync(id);
+            await _roomService  .DeleteAsync(id);
             return Ok("deleted");
         }
         catch (ArgumentNullException ex)

@@ -12,21 +12,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<int>(type: "int", nullable: false),
-                    LastName = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Admins",
                 columns: table => new
                 {
@@ -144,27 +129,13 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GuestId = table.Column<int>(type: "int", nullable: false),
-                    AdminId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<int>(type: "int", nullable: false),
-                    EndDate = table.Column<int>(type: "int", nullable: false),
-                    AdminId1 = table.Column<int>(type: "int", nullable: false)
+                    EndDate = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Admin_AdminId",
-                        column: x => x.AdminId,
-                        principalTable: "Admin",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Admins_AdminId1",
-                        column: x => x.AdminId1,
-                        principalTable: "Admins",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Guests_GuestId",
                         column: x => x.GuestId,
@@ -208,16 +179,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_AdminId",
-                table: "Orders",
-                column: "AdminId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_AdminId1",
-                table: "Orders",
-                column: "AdminId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_GuestId",
                 table: "Orders",
                 column: "GuestId");
@@ -242,6 +203,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Admins");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
@@ -249,12 +213,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Staffs");
-
-            migrationBuilder.DropTable(
-                name: "Admin");
-
-            migrationBuilder.DropTable(
-                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "Guests");

@@ -1,4 +1,5 @@
-﻿using HotelDemo.DataAccsesLayer.Entities.Guests;
+﻿using HotelDemo.DataAccsesLayer.Entities;
+using HotelDemo.DataAccsesLayer.Entities.Guests;
 using HotelDemo.DataAccsesLayer.Entities.Orders;
 
 namespace HotelDemo.DataAccsesLayer.Interfaces;

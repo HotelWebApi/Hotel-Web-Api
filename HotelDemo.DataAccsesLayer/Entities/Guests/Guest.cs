@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HotelDemo.DataAccsesLayer.Entities.Orders;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelDemo.DataAccsesLayer.Entities.Guests;
 
@@ -34,4 +35,6 @@ public class Guest : BaseEntitiy
 
     [StringLength(5)]
     public string Gender { get; set; } = string.Empty;
+
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

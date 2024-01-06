@@ -23,5 +23,4 @@ public class AddAdminDto
 
     [Required, StringLength(100)]
     public string Address { get; set; } = string.Empty!;
-    public List<OrderDto> Orders { get; set; } = new();
 }

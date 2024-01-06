@@ -28,22 +28,17 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             .HasForeignKey(e => e.RoomTypeId)
             .OnDelete(DeleteBehavior.Restrict);
 
-
-        modelBuilder.Entity<Staff>()
-                       .HasKey(s => s.Id);
-
-        modelBuilder.Entity<Guest>()
-                .HasKey(g => g.Id);
-
-        modelBuilder.Entity<Guest>()
-                .Property(g => g.FirstName)
-                .IsRequired()
-                .HasMaxLength(50);
-
-        modelBuilder.Entity<Guest>()
-            .Property(g => g.LastName)
-            .IsRequired()
-            .HasMaxLength(50);
+        modelBuilder.Entity<Room>()
+            .HasOne(e => e.RoomStatus)
+            .WithMany(rs => rs.Rooms)
+            .HasForeignKey(e => e.RoomStatusId)
+            .OnDelete(DeleteBehavior.Restrict);
+      
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.Guest)
+            .WithMany(g => g.Orders)
+            .HasForeignKey(o => o.GuestId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(modelBuilder);
     }

@@ -11,6 +11,7 @@ public class StaffService(IUnitOfWork unitOfWork, IMapper mapper) : IStaffServic
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
+
     public async Task AddAsync(AddStaffDto staffDtoDto)
     {
         if (staffDtoDto is null)
@@ -28,8 +29,12 @@ public class StaffService(IUnitOfWork unitOfWork, IMapper mapper) : IStaffServic
         {
             throw new Exception(ex.Message);
         }
-    }
 
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 
     public async Task DeleteAsync(int id)
     {
@@ -42,18 +47,54 @@ public class StaffService(IUnitOfWork unitOfWork, IMapper mapper) : IStaffServic
         await _unitOfWork.SaveAsync();
     }
 
-    public Task<List<StaffDto>> GetAllAsync()
+    public async Task<List<StaffDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var staffs = await _unitOfWork.StaffInterface.GetAllAsync();
+        return staffs.Select(e => _mapper.Map<StaffDto>(e))
+                         .ToList();
     }
 
-    public Task<StaffDto> GetByIdAsync(int id)
+    public async Task<PagedList<StaffDto>> GetAllPagedAsync(int pageSize, int pageNumber)
     {
-        throw new NotImplementedException();
+        var staffs = await GetAllAsync();
+        PagedList<StaffDto> pagedList = new(staffs, staffs.Count, pageNumber, pageSize);
+        return pagedList.ToPagedList(staffs,
+                                      pageSize,
+                                      pageNumber);
     }
 
-    public Task UpdateAsync(UpdateStaffDto updatedStaffDtoDto)
+    public async Task<StaffDto> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var staff = await _unitOfWork.StaffInterface.GetByIdAsync(id);
+        if (staff is null)
+        {
+            throw new ArgumentException("staff is not");
+        }
+        return _mapper.Map<StaffDto>(staff);
+    }
+
+    public async Task UpdateAsync(UpdateStaffDto updatedStaffDto)
+    {
+        if (updatedStaffDto is null)
+        {
+            throw new ArgumentNullException(nameof(updatedStaffDto), "Updated staff information is null");
+        }
+
+        var staff = await _unitOfWork.StaffInterface.GetByIdAsync(updatedStaffDto.Id);
+
+        if (staff is null)
+        {
+            throw new ArgumentException($"No staff found with ID {updatedStaffDto.Id}", nameof(updatedStaffDto.Id));
+        }
+
+        _mapper.Map(updatedStaffDto, staff);
+
+        if (!staff.IsValid())
+        {
+            throw new CustomException("Staff information is invalid!");
+        }
+
+        await _unitOfWork.StaffInterface.UpdateAsync(staff);
+        await _unitOfWork.SaveAsync();
     }
 }

@@ -35,6 +35,9 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 //Add Service
 builder.Services.AddTransient<IStaffService, StaffService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<IGuestService, GuestService>();
+builder.Services.AddTransient<IRoomService, RoomService>();
 #endregion
 
 #region Mapper Profile

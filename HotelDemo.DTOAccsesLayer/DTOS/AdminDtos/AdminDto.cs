@@ -6,5 +6,4 @@ namespace HotelDemo.DTOAccsesLayer.DTOS.AdminDtos;
 public class AdminDto : BaseEntitiy
 {
     public string Address { get; set; } = string.Empty!;
-    public List<OrderDto> Orders { get; set; } = new();
 }

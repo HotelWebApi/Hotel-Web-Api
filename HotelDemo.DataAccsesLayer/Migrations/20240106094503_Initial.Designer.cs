@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelDemo.DataAccsesLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240105120138_Initial")]
+    [Migration("20240106094503_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Admin", b =>
+            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Admin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,28 +61,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Admins");
-                });
-
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Address")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FirstName")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LastName")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admin");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", b =>
@@ -178,12 +156,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdminId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AdminId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("EndDate")
                         .HasColumnType("int");
 
@@ -197,10 +169,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdminId");
-
-                    b.HasIndex("AdminId1");
 
                     b.HasIndex("GuestId");
 
@@ -365,18 +333,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Admin", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HotelDemo.DataAccsesLayer.Admin", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("AdminId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestId")
@@ -388,8 +344,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Admin");
 
                     b.Navigation("Guest");
 
@@ -413,11 +367,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.Navigation("RoomStatus");
 
                     b.Navigation("RoomType");
-                });
-
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Admin", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Rooms.RoomStatus", b =>
