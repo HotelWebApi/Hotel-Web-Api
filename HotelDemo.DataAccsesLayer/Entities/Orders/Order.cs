@@ -1,4 +1,5 @@
 ﻿using HotelDemo.DataAccsesLayer.Entities.Guests;
+using HotelDemo.DataAccsesLayer.Entities.Rooms;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelDemo.DataAccsesLayer.Entities.Orders;
@@ -17,4 +18,5 @@ public class Order : IdEntity
     public Admin Admin { get; set; } = new();
     public int StartDate { get; set; }
     public int EndDate { get; set; }
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 }
