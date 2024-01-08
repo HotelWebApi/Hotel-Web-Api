@@ -18,7 +18,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderStatus> OrderStatuses { get; set; }
     public DbSet<Admin> Admins { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
@@ -33,12 +32,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             .WithMany(rs => rs.Rooms)
             .HasForeignKey(e => e.RoomStatusId)
             .OnDelete(DeleteBehavior.Restrict);
-      
+
         modelBuilder.Entity<Order>()
-            .HasOne(o => o.Guest)
-            .WithMany(g => g.Orders)
-            .HasForeignKey(o => o.GuestId)
-            .OnDelete(DeleteBehavior.Restrict);
+           .HasKey(o => o.Id);
+
+        modelBuilder.Entity<OrderStatus>()
+            .HasKey(os => os.Id);
 
         base.OnModelCreating(modelBuilder);
     }

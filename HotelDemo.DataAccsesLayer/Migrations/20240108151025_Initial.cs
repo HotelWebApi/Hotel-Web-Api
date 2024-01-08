@@ -128,10 +128,12 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    AdminId = table.Column<int>(type: "int", nullable: false),
                     GuestId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<int>(type: "int", nullable: false),
-                    EndDate = table.Column<int>(type: "int", nullable: false)
+                    StartDate = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    EndDate = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    OrderStatusId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,11 +145,10 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_OrderStatuses_StatusId",
-                        column: x => x.StatusId,
+                        name: "FK_Orders_OrderStatuses_OrderStatusId",
+                        column: x => x.OrderStatusId,
                         principalTable: "OrderStatuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -169,7 +170,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         column: x => x.RoomStatusId,
                         principalTable: "RoomStatuses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Rooms_RoomTypes_RoomTypeId",
                         column: x => x.RoomTypeId,
@@ -184,9 +185,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 column: "GuestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_StatusId",
+                name: "IX_Orders_OrderStatusId",
                 table: "Orders",
-                column: "StatusId");
+                column: "OrderStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_RoomStatusId",

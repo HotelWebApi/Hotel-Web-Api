@@ -51,10 +51,10 @@ public class RoomTypeService(IUnitOfWork unitOfWork, IMapper mapper) : IRoomType
     {
         var roomTask = _unitOfWork.RoomTypeInterface.GetByIdAsync(id);
         var roomtype = await roomTask;
-        if (!roomtype.IsValid())
-        {
-            throw new CustomException($"{nameof(roomtype.Id)} cannot be deleted");
-        }
+        //if (!roomtype.IsValid())
+        //{
+        //    throw new CustomException($"{nameof(roomtype.Id)} cannot be deleted");
+        //}
         await _unitOfWork.RoomTypeInterface.DeleteAsync(roomtype);
         await _unitOfWork.SaveAsync();
     }
@@ -87,10 +87,10 @@ public class RoomTypeService(IUnitOfWork unitOfWork, IMapper mapper) : IRoomType
             throw new ArgumentNullException(nameof(roomtype));
         }
         _mapper.Map(updateRoomTypeDto, roomtype);
-        if (!roomtype.IsValid())
-        {
-            throw new CustomException("Guest information is invalid!");
-        }
+        //if (!roomtype.IsValid())
+        //{
+        //    throw new CustomException("Guest information is invalid!");
+        //}
         await _unitOfWork.RoomTypeInterface.UpdateAsync(roomtype);
         await _unitOfWork.SaveAsync();
     }

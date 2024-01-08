@@ -5,8 +5,6 @@ namespace HotelDemo.DataAccsesLayer.Repositories;
 
 public class RoomRepository(AppDbContext dbContext) : Repository<Room>(dbContext), IRoomInterface
 {
-    private readonly AppDbContext _dbContext = dbContext;
-
     public int Id { get; set; }
     public int Number { get; set; }
     public int Price { get; set; }

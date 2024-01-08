@@ -1,9 +1,4 @@
 ﻿using HotelDemo.DTOAccsesLayer.DTOS.RoomDtos.RoomStatusDtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelDemo.BusnissLogicLayer.Interfaces;
 

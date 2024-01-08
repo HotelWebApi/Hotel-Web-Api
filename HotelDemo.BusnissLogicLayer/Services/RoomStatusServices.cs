@@ -7,7 +7,7 @@ using HotelDemo.DTOAccsesLayer.DTOS.RoomDtos.RoomStatusDtos;
 
 namespace HotelDemo.BusnissLogicLayer.Servicesl;
 
-public class RoomStatusService(IUnitOfWork unitOfWork, IMapper mapper) : IRoomStatusService
+public class RoomStatusServices(IUnitOfWork unitOfWork, IMapper mapper) : IRoomStatusService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;

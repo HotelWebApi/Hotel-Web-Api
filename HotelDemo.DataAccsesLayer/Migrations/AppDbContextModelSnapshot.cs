@@ -153,14 +153,24 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EndDate")
+                    b.Property<int>("AdminId")
                         .HasColumnType("int");
+
+                    b.Property<string>("EndDate")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("GuestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StartDate")
+                    b.Property<int?>("OrderStatusId")
                         .HasColumnType("int");
+
+                    b.Property<string>("StartDate")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -169,7 +179,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     b.HasIndex("GuestId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("OrderStatusId");
 
                     b.ToTable("Orders");
                 });
@@ -330,21 +340,15 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", "Guest")
-                        .WithMany()
+                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", null)
+                        .WithMany("Orders")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Orders.OrderStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Guest");
-
-                    b.Navigation("Status");
+                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Orders.OrderStatus", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("OrderStatusId");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Rooms.Room", b =>
@@ -352,7 +356,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.HasOne("HotelDemo.DataAccsesLayer.Entities.Rooms.RoomStatus", "RoomStatus")
                         .WithMany("Rooms")
                         .HasForeignKey("RoomStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HotelDemo.DataAccsesLayer.Entities.Rooms.RoomType", "RoomType")
@@ -364,6 +368,16 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.Navigation("RoomStatus");
 
                     b.Navigation("RoomType");
+                });
+
+            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Orders.OrderStatus", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Rooms.RoomStatus", b =>

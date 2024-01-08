@@ -51,4 +51,7 @@ public class AddGuestDto
 
     [StringLength(5)]
     public string Gender { get; set; } = string.Empty;
+
+    [Required]
+    public int AdminId { get; set; }
 }

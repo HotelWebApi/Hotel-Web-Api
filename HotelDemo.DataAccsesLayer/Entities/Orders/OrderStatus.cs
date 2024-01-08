@@ -1,7 +1,4 @@
-﻿
-using HotelDemo.DataAccsesLayer.Entities.Rooms;
-
-namespace HotelDemo.DataAccsesLayer.Entities.Orders;
+﻿namespace HotelDemo.DataAccsesLayer.Entities.Orders;
 
 public class OrderStatus : IdEntity
 {

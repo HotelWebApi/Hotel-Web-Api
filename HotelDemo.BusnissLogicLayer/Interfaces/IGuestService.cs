@@ -11,4 +11,5 @@ public interface IGuestService
     Task AddAsync(AddGuestDto GuestDto);
     Task UpdateAsync(UpdateGuestDto updatedGuestDto);
     Task DeleteAsync(int id);
+    //kebf4vyub4iugvfuoifh
 }
