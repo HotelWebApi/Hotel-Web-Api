@@ -77,7 +77,7 @@ public class RoomService(IUnitOfWork unitOfWork, IMapper mapper) : IRoomService
         var room = await _unitOfWork.RoomInterface.GetByIdAsync(id);
         if (room is null)
         {
-            throw new ArgumentException("Education is not");
+            throw new ArgumentException("room is null");
         }
         return _mapper.Map<RoomDto>(room);
     }

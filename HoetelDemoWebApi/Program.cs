@@ -1,6 +1,7 @@
 using AutoMapper;
 using HotelDemo.BusnissLogicLayer.Interfaces;
 using HotelDemo.BusnissLogicLayer.Services;
+using HotelDemo.BusnissLogicLayer.Servicesl;
 using HotelDemo.DataAccsesLayer;
 using HotelDemo.DataAccsesLayer.Interfaces;
 using HotelDemo.DataAccsesLayer.Repositories;
@@ -38,6 +39,8 @@ builder.Services.AddTransient<IStaffService, StaffService>();
 builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<IGuestService, GuestService>();
 builder.Services.AddTransient<IRoomService, RoomService>();
+builder.Services.AddTransient<IRoomTypeService, RoomTypeService>();
+builder.Services.AddTransient<IRoomStatusService, RoomStatusService>();
 #endregion
 
 #region Mapper Profile

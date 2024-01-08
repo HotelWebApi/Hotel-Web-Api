@@ -4,6 +4,8 @@ using HotelDemo.DataAccsesLayer.Entities;
 using HotelDemo.DataAccsesLayer;
 using Microsoft.EntityFrameworkCore;
 using HotelDemo.DataAccsesLayer.Entities.Rooms;
+using System.Collections.Concurrent;
+using HotelDemo.DataAccsesLayer.Entities.Orders;
 
 namespace HotelDemo.BusnissLogicLayer.Extended
 {
@@ -39,12 +41,18 @@ namespace HotelDemo.BusnissLogicLayer.Extended
                && admin.LastName.Length >= 2
                && admin.FirstName.Length <= 50;
 
+        public static bool IsValid(this RoomType roomType) 
+            => roomType != null 
+            && !string.IsNullOrEmpty(roomType.Name);
+
         public static bool IsValid(this Room room)
             => room != null;
-               
-        public static bool IsValid (this RoomStatus roomStatus)
-            => roomStatus != null
-            && !string.IsNullOrEmpty(roomStatus.Name);
+
+        public static bool IsValid(this RoomStatus roomStatus)
+            => roomStatus != null;
+
+        public static bool IsValid(this Order order)
+            => order != null;
 
         public static bool IsExist(this Admin admin, IEnumerable<Admin> admins)
             => admins.Any(a => a.FirstName == admin.FirstName
@@ -56,5 +64,19 @@ namespace HotelDemo.BusnissLogicLayer.Extended
             && rooms.Any(r => r.RoomType == room.RoomType 
             && r.RoomStatus == room.RoomStatus
             && r.Number == room.Number);
+
+        public static bool IsExist(this RoomType roomType, IEnumerable<RoomType> roomTypes)
+            => roomType != null
+            && roomTypes.Any(r => r.Name == roomType.Name);
+        public static bool IsExist(this RoomStatus roomStatus, IEnumerable<RoomStatus> roomstatuss) 
+            => roomStatus != null&& roomstatuss.Any(r =>r.Name == roomStatus.Name && r.Id == roomStatus.Id);
+
+        public static bool IsExist(this Order order, IEnumerable<Order> orders)
+            => order != null
+            && orders.Any(o => o.Id == order.Id 
+            && o.Status == order.Status 
+            && o.StatusId == order.StatusId 
+            && o.StartDate == order.StartDate
+            && o.EndDate == order.EndDate);
     }
 }
