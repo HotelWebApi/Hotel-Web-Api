@@ -23,25 +23,26 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 #endregion
 
-#region Add Interface and Service
+// Add Interface and Service
 builder.Services.AddTransient<IStaffInterface, StaffRepository>();
 builder.Services.AddTransient<IAdminInterface, AdminRepository>();
 builder.Services.AddTransient<IGuestInterface, GuestRepository>();
 builder.Services.AddTransient<IOrderInterface, OrderRepository>();
 builder.Services.AddTransient<IOrderStatusInterface, OrderStatusRepository>();
-builder.Services.AddTransient<IRoomInterface,RoomRepository>();
+builder.Services.AddTransient<IRoomInterface, RoomRepository>();
 builder.Services.AddTransient<IRoomStatusInterface, RoomStatusRepository>();
 builder.Services.AddTransient<IRoomTypeInterface, RoomTypeRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-//Add Service
+// Add Service
 builder.Services.AddTransient<IStaffService, StaffService>();
 builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<IGuestService, GuestService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderStatusService, OrderStatusServices>(); // Corrected typo here
 builder.Services.AddTransient<IRoomService, RoomService>();
+builder.Services.AddTransient<IRoomStatusService, RoomStatusServices>(); // Corrected typo here
 builder.Services.AddTransient<IRoomTypeService, RoomTypeService>();
-builder.Services.AddTransient<IRoomStatusService, RoomStatusService>();
-#endregion
 
 #region Mapper Profile
 var mapperConfig = new MapperConfiguration(mc =>

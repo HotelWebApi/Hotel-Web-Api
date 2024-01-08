@@ -6,17 +6,8 @@ namespace HotelDemo.DataAccsesLayer.Repositories;
 
 public class RoomStatusRepository : Repository<RoomStatus>, IRoomStatusInterface
 {
-    private readonly AppDbContext _dbContext;
     public RoomStatusRepository(AppDbContext dbContext) : base(dbContext)
     {
-        _dbContext = dbContext;
-        Rooms = new List<Room>();
     }
 
-    public string Name { get; set; }
-    public ICollection<Room> Rooms { get; set; }
-        = new List<Room>();
-
-    
-    public int Id => throw new NotImplementedException();
 }

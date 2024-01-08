@@ -35,6 +35,8 @@ public class Guest : BaseEntitiy
 
     [StringLength(5)]
     public string Gender { get; set; } = string.Empty;
+    [Required]
+    public int AdminId { get; set; }
 
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

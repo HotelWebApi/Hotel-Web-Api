@@ -12,6 +12,8 @@ using HotelDemo.DTOAccsesLayer.DTOS.RoomDtos.RoomStatusDtos;
 using HotelDemo.DataAccsesLayer.Entities;
 using HotelDemo.DTOAccsesLayer.DTOS.OrderDtos;
 using HotelDemo.DataAccsesLayer.Entities.Orders;
+using HotelDemo.DTOAccsesLayer.DTOS.OrderDtos.OrderStatus;
+using HotelDemo.DTOAccsesLayer.DTOS.OrderDtos.OrderStatusDtos;
 namespace HotelDemo.DTOAccsesLayer;
 
 public class AutoMapperProfile : Profile
@@ -52,6 +54,20 @@ public class AutoMapperProfile : Profile
         CreateMap<AddRoomTypeDto, RoomType>();
         CreateMap<RoomTypeDto, RoomType>().ReverseMap();
         CreateMap<UpdateRoomTypeDto, RoomType>();
+        #endregion
+
+        #region Order
+        CreateMap<AddOrderDto, Order>();
+        CreateMap<Order, OrderDto>()
+            .ReverseMap();
+        CreateMap<UpdateOrderDto, Order>();
+        #endregion
+
+        #region Order Status
+        CreateMap<AddOrderStatusDto, OrderStatus>();
+        CreateMap<OrderStatusDto, OrderStatus>()
+            .ReverseMap();
+        CreateMap<UpdateOrderStatusDto, OrderStatus>();
         #endregion
     }
 }

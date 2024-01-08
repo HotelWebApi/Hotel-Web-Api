@@ -2,8 +2,10 @@
 using HotelDemo.BusnissLogicLayer.Extended;
 using HotelDemo.BusnissLogicLayer.Interfaces;
 using HotelDemo.DataAccsesLayer.Entities.Guests;
+using HotelDemo.DataAccsesLayer.Entities.Orders;
 using HotelDemo.DataAccsesLayer.Interfaces;
 using HotelDemo.DTOAccsesLayer.DTOS.GuestDtos;
+using HotelDemo.DTOAccsesLayer.DTOS.OrderDtos;
 
 namespace HotelDemo.BusnissLogicLayer.Services;
 
@@ -12,19 +14,25 @@ public class GuestService(IUnitOfWork unitOfWork, IMapper mapper) : IGuestServic
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
 
-    public async Task AddAsync(AddGuestDto GuestDto)
+    public async Task AddAsync(AddGuestDto guestDto)
     {
-        if (GuestDto == null)
+        if (guestDto == null)
         {
-            throw new ArgumentNullException(nameof(GuestDto));
+            throw new ArgumentNullException(nameof(guestDto));
         }
 
-        var guest = _mapper.Map<Guest>(GuestDto);
+        var guest = _mapper.Map<Guest>(guestDto);
 
         try
         {
-            await _unitOfWork.GuestInterface.AddAsync(guest);
-            await _unitOfWork.SaveAsync();
+            var admins = await _unitOfWork.AdminInterface.GetAllAsync();
+            var admin = await _unitOfWork.AdminInterface.GetByIdAsync(guestDto.AdminId);
+            if (admin.IsExist(admins))
+            {
+                await _unitOfWork.GuestInterface.AddAsync(guest);
+                await _unitOfWork.SaveAsync();
+            }
+
         }
         catch (CustomException ex)
         {

@@ -1,10 +1,8 @@
-﻿using HotelDemo.DataAccsesLayer.Entities.Guests;
-using HotelDemo.DataAccsesLayer.Entities.Orders;
-using HotelDemo.DataAccsesLayer.Entities;
-using HotelDemo.DTOAccsesLayer.DTOS.OrderDtos.OrderStatus;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class OrderDto : IdEntity
+namespace HotelDemo.DTOAccsesLayer.DTOS.OrderDtos;
+
+public class AddOrderDto
 {
     public int GuestId { get; set; }
     public int AdminId { get; set; }
