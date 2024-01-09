@@ -12,4 +12,5 @@ public interface IGuestService
     Task UpdateAsync(UpdateGuestDto updatedGuestDto);
     Task DeleteAsync(int id);
     //kebf4vyub4iugvfuoifh
+    //4fr09ewhtiuge54we9rg8iunjerkewg
 }
