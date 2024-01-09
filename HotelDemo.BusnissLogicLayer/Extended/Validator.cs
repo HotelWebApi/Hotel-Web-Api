@@ -76,5 +76,17 @@ namespace HotelDemo.BusnissLogicLayer.Extended
         public static bool IsExist(this OrderStatus orderStatus, IEnumerable<OrderStatus> orders)
             => orderStatus != null && orders.Any(o => o.Id == orderStatus.Id
             && o.Name == orderStatus.Name);
+
+        public static bool IsExist(this Guest guest, IEnumerable<Guest> guests)
+            => guest != null
+            && guests.Any(g => g.BirthDate == guest.BirthDate
+            && g.Passport == guest.Passport
+            && g.Address == guest.Address
+            && g.Citizenship == guest.Citizenship
+            && g.PhoneNumber == guest.PhoneNumber
+            && g.OrganizationName == guest.OrganizationName
+            && g.LastName == guest.LastName
+            && g.FatherName == guest.FirstName
+            );
     }
 }

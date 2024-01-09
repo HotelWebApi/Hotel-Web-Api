@@ -17,9 +17,9 @@ public class AddAdminDto
     [StringLength(50, MinimumLength = 3, ErrorMessage = "FatherName length must be between 3 and 50")]
     public string FatherName { get; set; } = string.Empty!;
     [Required]
-    public DateTime AddedTime { get; set; }
+    public string AddedTime { get; set; } = string.Empty!;
     [Required]
-    public DateTime EditedTime { get; set; }
+    public string EditedTime { get; set; } = string.Empty!;
 
     [Required, StringLength(100)]
     public string Address { get; set; } = string.Empty!;

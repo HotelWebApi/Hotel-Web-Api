@@ -46,6 +46,7 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Organization = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    AdminId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FatherName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -139,12 +140,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Guests_GuestId",
-                        column: x => x.GuestId,
-                        principalTable: "Guests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Orders_OrderStatuses_OrderStatusId",
                         column: x => x.OrderStatusId,
                         principalTable: "OrderStatuses",
@@ -180,11 +175,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_GuestId",
-                table: "Orders",
-                column: "GuestId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_OrderStatusId",
                 table: "Orders",
                 column: "OrderStatusId");
@@ -207,6 +197,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
+                name: "Guests");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
@@ -214,9 +207,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Staffs");
-
-            migrationBuilder.DropTable(
-                name: "Guests");
 
             migrationBuilder.DropTable(
                 name: "OrderStatuses");

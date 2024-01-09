@@ -22,7 +22,12 @@ public class GuestService(IUnitOfWork unitOfWork, IMapper mapper) : IGuestServic
         }
 
         var guest = _mapper.Map<Guest>(guestDto);
-
+        var guests = await _unitOfWork.GuestInterface.GetAllAsync();
+        
+        if (guest.IsExist(guests))
+        {
+            throw new CustomException($"This {guest.FirstName} {guest.LastName} already exist.");
+        }
         try
         {
             var admins = await _unitOfWork.AdminInterface.GetAllAsync();
@@ -32,7 +37,6 @@ public class GuestService(IUnitOfWork unitOfWork, IMapper mapper) : IGuestServic
                 await _unitOfWork.GuestInterface.AddAsync(guest);
                 await _unitOfWork.SaveAsync();
             }
-
         }
         catch (CustomException ex)
         {
@@ -91,6 +95,12 @@ public class GuestService(IUnitOfWork unitOfWork, IMapper mapper) : IGuestServic
         }
 
         var guest = await _unitOfWork.GuestInterface.GetByIdAsync(updatedGuestDto.Id);
+        var guests = await _unitOfWork.GuestInterface.GetAllAsync();
+
+        if (guest.IsExist(guests))
+        {
+            throw new CustomException($"This {guest.FirstName} {guest.LastName} already exist.");
+        }
 
         if (guest is null)
         {

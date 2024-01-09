@@ -12,8 +12,8 @@ public class Guest : BaseEntitiy
     [StringLength(60, ErrorMessage = "Passport length must be less than 60")]
     public string Passport { get; set; } = string.Empty;
 
-    public DateTime BirthDate { get; set; }
-    public DateTime DateOfIssue { get; set; }
+    public string BirthDate { get; set; } = string.Empty!;
+    public string DateOfIssue { get; set; } = string.Empty!;
 
     [StringLength(100)]
     public string Address { get; set; } = string.Empty;
@@ -37,6 +37,4 @@ public class Guest : BaseEntitiy
     public string Gender { get; set; } = string.Empty;
     [Required]
     public int AdminId { get; set; }
-
-    public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

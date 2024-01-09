@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelDemo.DataAccsesLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240108151025_Initial")]
-    partial class Initial
+    [Migration("20240108163358_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,15 +33,17 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("AddedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("AddedTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EditedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditedTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FatherName")
                         .IsRequired()
@@ -71,32 +73,39 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("AddedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("AddedTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BirthDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Citizenship")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("DateOfIssue")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DateOfIssue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("EditedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditedTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FatherName")
                         .IsRequired()
@@ -179,8 +188,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GuestId");
 
                     b.HasIndex("OrderStatusId");
 
@@ -278,8 +285,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("AddedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("AddedTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -294,8 +302,9 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)");
 
-                    b.Property<DateTime>("EditedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EditedTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -343,12 +352,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("GuestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HotelDemo.DataAccsesLayer.Entities.Orders.OrderStatus", null)
                         .WithMany("Orders")
                         .HasForeignKey("OrderStatusId");
@@ -371,11 +374,6 @@ namespace HotelDemo.DataAccsesLayer.Migrations
                     b.Navigation("RoomStatus");
 
                     b.Navigation("RoomType");
-                });
-
-            modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Guests.Guest", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("HotelDemo.DataAccsesLayer.Entities.Orders.OrderStatus", b =>

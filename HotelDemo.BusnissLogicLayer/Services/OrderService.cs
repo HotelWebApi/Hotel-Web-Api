@@ -25,17 +25,8 @@ public class OrderService(IUnitOfWork unitOfWork, IMapper mapper) : IOrderServic
         }
         try
         {
-            var admins = await _unitOfWork.AdminInterface.GetAllAsync();
-            var admin = await _unitOfWork.AdminInterface.GetByIdAsync(addorderDto.AdminId);
-            if (admin.IsExist(admins))
-            {
-                await _unitOfWork.OrderInterface.AddAsync(order);
-                await _unitOfWork.SaveAsync();
-            }
-            else
-            {
-                throw new CustomException("Admin is not");
-            }
+            await _unitOfWork.OrderInterface.AddAsync(order);
+            await _unitOfWork.SaveAsync();
         }
         catch (CustomException ex)
         {
